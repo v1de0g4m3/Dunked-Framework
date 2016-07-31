@@ -59,6 +59,5 @@ typedef void(__thiscall* ClientModeFn)(void*, float, CUserCmd*);
 
 namespace g_ClientMode
 {
-	extern bool Verify(CUserCmd* pCmd);
 	extern bool __fastcall Main(void*, float input, CUserCmd*);
 }

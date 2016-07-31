@@ -2,17 +2,11 @@
 
 extern ClientModeFn oClientMode;
 
-bool g_ClientMode::Verify(CUserCmd* pCmd) 
+bool __fastcall g_ClientMode::Main(void* ecx, float input, CUserCmd* pCmd)
 {
-	return (pCmd != nullptr) && (fabs(pCmd->command_number) > DBL_EPSILON);
-}
+	oClientMode(ecx, input, pCmd);
 
-bool __fastcall g_ClientMode::Main(void* edx, float input, CUserCmd* pCmd)
-{
-	oClientMode(edx, input, pCmd);
-
-	if (!Verify(pCmd))
-		return false;
+	//pCmd->viewangles.x = rand() % 89;
 
 	g_utilList::console->Print("%f\n", pCmd->viewangles.x);
 
