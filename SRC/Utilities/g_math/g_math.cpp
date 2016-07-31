@@ -135,7 +135,7 @@ void g_math::VectorAngles(Vector& forward, Angle& angles)
 {
 	float tmp, yaw, pitch;
 
-	if (forward.y == 0 && forward.x == 0)
+	if ((fabs(forward.y) < DBL_EPSILON) && (fabs(forward.x) < DBL_EPSILON))
 	{
 		yaw = 0;
 
@@ -173,3 +173,5 @@ void g_math::Transform(const Vector& vSome, const Matrix3x4& vMatrix, Vector& vO
 	for (auto i = 0; i < 3; i++)
 		vOut[i] = vSome.Dot(Vector(vMatrix[i])) + vMatrix[i][3];
 }
+
+g_math* g_utilList::math = new g_math;

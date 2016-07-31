@@ -6,42 +6,68 @@
 class Angle : public Vector
 {
 public:
-	Angle(float _x = 0.f, float _y = 0.f, float _z = 0.f)
+	explicit Angle(float _x = 0.f, float _y = 0.f, float _z = 0.f)
 	{
 		Init(_x, _y, _z);
 	}
 
-	float& operator[](int i)
+	template <typename T>
+	__forceinline float& operator[](T i)
 	{
-		return ((float*)this)[i];
+		return reinterpret_cast<float*>(this)[static_cast<int>(i)];
 	}
 
-	float operator[](int i) const
+	template <typename T>
+	__forceinline float operator[](T i) const
 	{
-		return ((float*)this)[i];
+		return ((float*)this)[static_cast<int>(i)];
 	}
 
-	Angle operator+(const Angle& in) const
+	template <typename T>
+	__forceinline Angle operator+(const T& in) const
+	{
+		return Angle(this->x + in, this->y + in, this->z + in);
+	}
+
+	template <typename T>
+	__forceinline Angle operator-(const T& in) const
+	{
+		return Angle(this->x - in, this->y - in, this->z - in);
+	}
+
+	template <typename T>
+	__forceinline Angle operator*(const T& in) const
+	{
+		return Angle(this->x * in, this->y * in, this->z * in);
+	}
+
+	template <typename T>
+	__forceinline Angle operator/(const T& in) const
+	{
+		return Angle(this->x / in, this->y / in, this->z / in);
+	}
+
+	__forceinline Angle operator+(const Angle& in) const
 	{
 		return Angle(this->x + in.x, this->y + in.y, this->z + in.z);
 	}
 
-	Angle operator-(const Angle& in) const
+	__forceinline Angle operator-(const Angle& in) const
 	{
 		return Angle(this->x - in.x, this->y - in.y, this->z - in.z);
 	}
 
-	Angle operator*(const Angle& in) const
+	__forceinline Angle operator*(const Angle& in) const
 	{
 		return Angle(this->x * in.x, this->y * in.y, this->z * in.z);
 	}
 
-	Angle operator/(const Angle& in) const
+	__forceinline Angle operator/(const Angle& in) const
 	{
 		return Angle(this->x / in.x, this->y / in.y, this->z / in.z);
 	}
 
-	Angle operator-=(const Angle& in)
+	__forceinline Angle operator-=(const Angle& in)
 	{
 		this->x -= in.x;
 		this->y -= in.y;
@@ -50,7 +76,17 @@ public:
 		return *this;
 	}
 
-	Angle operator+=(const Angle& in)
+	template <typename T>
+	__forceinline Angle operator-=(const T& in)
+	{
+		this->x -= in;
+		this->y -= in;
+		this->z -= in;
+
+		return *this;
+	}
+
+	__forceinline Angle operator+=(const Angle& in)
 	{
 		this->x += in.x;
 		this->y += in.y;
@@ -59,7 +95,17 @@ public:
 		return *this;
 	}
 
-	Angle operator/=(const Angle& in)
+	template <typename T>
+	__forceinline Angle operator+=(const T& in)
+	{
+		this->x += in;
+		this->y += in;
+		this->z += in;
+
+		return *this;
+	}
+
+	__forceinline Angle operator/=(const Angle& in)
 	{
 		this->x /= in.x;
 		this->y /= in.y;
@@ -68,7 +114,17 @@ public:
 		return *this;
 	}
 
-	Angle operator*=(const Angle& in)
+	template <typename T>
+	__forceinline Angle operator/=(const T& in)
+	{
+		this->x /= in;
+		this->y /= in;
+		this->z /= in;
+
+		return *this;
+	}
+
+	__forceinline Angle operator*=(const Angle& in)
 	{
 		this->x *= in.x;
 		this->y *= in.y;
@@ -77,71 +133,56 @@ public:
 		return *this;
 	}
 
-	void Clear()
+	template <typename T>
+	__forceinline Angle operator*=(const T& in)
 	{
-		this->x = this->y = this->z = .0f;
+		this->x *= in;
+		this->y *= in;
+		this->z *= in;
+
+		return *this;
+	}
+
+	__forceinline bool operator==(const Angle& in)
+	{
+		auto& pVec = *this;
+
+		return (fabs(pVec.x - in.x) < DBL_EPSILON) && (fabs(pVec.y - in.y) < DBL_EPSILON) && (fabs(pVec.z - in.z) < DBL_EPSILON);
+	}
+
+	__forceinline bool operator!=(const Angle& in)
+	{
+		auto& pVec = *this;
+
+		return !((fabs(pVec.x - in.x) < DBL_EPSILON) && (fabs(pVec.y - in.y) < DBL_EPSILON) && (fabs(pVec.z - in.z) < DBL_EPSILON));
 	}
 
 	Angle Normalize()
 	{
 		if (this->x != this->x)
-			this->x = 0;
+			this->x = 0.f;
 		if (this->y != this->y)
-			this->y = 0;
+			this->y = 0.f;
 		if (this->z != this->z)
-			this->z = 0;
+			this->z = 0.f;
 
 		if (this->x > 89.f)
 			this->x = 89.f;
 		if (this->x < -89.f)
 			this->x = -89.f;
 
-		while (this->y > 180)
-			this->y -= 360;
-		while (this->y <= -180)
-			this->y += 360;
+		while (this->y > 180.f)
+			this->y -= 360.f;
+		while (this->y <= -180.f)
+			this->y += 360.f;
 
 		if (this->y > 180.f)
 			this->y = 180.f;
 		if (this->y < -180.f)
 			this->y = -180.f;
 
-		this->z = 0;
+		this->z = 0.f;
 
 		return *this;
-	}
-
-	float Difference(Angle angDestination) const
-	{
-		bool bX180;
-		bool bY180;
-
-		float XDiff = _Normalize(this->x - angDestination.x);
-		float YDiff = _Normalize(this->y - angDestination.y);
-
-		bX180 = 180 > XDiff;
-		bY180 = 180 > YDiff;
-
-		if (!bX180)
-			XDiff -= 360;
-
-		if (!bY180)
-			YDiff -= 360;
-
-		if (0 > XDiff)
-			XDiff = (XDiff - XDiff) - XDiff;
-
-		if (0 > YDiff)
-			YDiff = (YDiff - YDiff) - YDiff;
-
-		float Diff = YDiff + XDiff;
-
-		return Diff;
-	}
-
-private:
-	float _Normalize(float angAngle) const
-	{
-		return static_cast<float>(fmod(angAngle + 180, 360) - 180);
 	}
 };

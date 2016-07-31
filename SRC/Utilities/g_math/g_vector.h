@@ -1,5 +1,4 @@
 #pragma once
-#include <set>
 
 class Vector
 {
@@ -210,6 +209,24 @@ public:
 class Matrix3x4
 {
 public:
+	Matrix3x4()
+	{
+		this->m[0][0] = 0.f;
+		this->m[0][1] = 0.f;
+		this->m[0][2] = 0.f;
+		this->m[0][3] = 0.f;
+
+		this->m[1][0] = 0.f;
+		this->m[1][1] = 0.f;
+		this->m[1][2] = 0.f;
+		this->m[1][3] = 0.f;
+
+		this->m[2][0] = 0.f;
+		this->m[2][1] = 0.f;
+		this->m[2][2] = 0.f;
+		this->m[2][3] = 0.f;
+	}
+
 	float* operator[](int i)
 	{
 		return m[i];
@@ -226,6 +243,29 @@ public:
 class Matrix4x4
 {
 public:
+	Matrix4x4()
+	{
+		this->m[0][0] = 0.f;
+		this->m[0][1] = 0.f;
+		this->m[0][2] = 0.f;
+		this->m[0][3] = 0.f;
+
+		this->m[1][0] = 0.f;
+		this->m[1][1] = 0.f;
+		this->m[1][2] = 0.f;
+		this->m[1][3] = 0.f;
+
+		this->m[2][0] = 0.f;
+		this->m[2][1] = 0.f;
+		this->m[2][2] = 0.f;
+		this->m[2][3] = 0.f;
+
+		this->m[3][0] = 0.f;
+		this->m[3][1] = 0.f;
+		this->m[3][2] = 0.f;
+		this->m[3][3] = 0.f;
+	}
+
 	float* operator[](int i)
 	{
 		return m[i];

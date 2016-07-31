@@ -11,22 +11,23 @@ public:
 	explicit Color(const _c);
 	explicit Color(const int);
 	Color(const _c, const _c, const _c, const _c);
+	Color(const Color& color);
 
 	char	&operator[](const char) const;
 	Color	&operator=(const Color &);
 
-	Color	&operator+=(const Color);
-	Color	&operator-=(const Color);
+	Color	&operator+=(const Color&);
+	Color	&operator-=(const Color&);
 	Color	&operator*=(const float);
 	Color	&operator/=(const float);
 
-	Color	operator+(const Color) const;
-	Color	operator-(const Color) const;
+	Color	operator+(const Color&) const;
+	Color	operator-(const Color&) const;
 	Color	operator*(const float) const;
 	Color	operator/(const float) const;
 
-	bool	operator==(const Color) const;
-	bool	operator!=(const Color) const;
+	bool	operator==(const Color&) const;
+	bool	operator!=(const Color&) const;
 
 	float	Hue() const;
 	float	Saturation() const;
@@ -60,6 +61,15 @@ inline Color::Color(const _c _r, const _c _g, const _c _b, const _c _a = 255)
 	a = _a;
 }
 
+inline Color::Color(const Color& color) 
+	: r(color.r), g(color.g), b(color.b), a(color.a)
+{
+	memcpy(reinterpret_cast<void*>(color.r), reinterpret_cast<const void*>(r), sizeof(unsigned char));
+	memcpy(reinterpret_cast<void*>(color.g), reinterpret_cast<const void*>(g), sizeof(unsigned char));
+	memcpy(reinterpret_cast<void*>(color.b), reinterpret_cast<const void*>(b), sizeof(unsigned char));
+	memcpy(reinterpret_cast<void*>(color.a), reinterpret_cast<const void*>(a), sizeof(unsigned char));
+}
+
 inline char &Color::operator[](const char c) const
 {
 	return ((char*)this)[c];
@@ -75,7 +85,7 @@ inline Color &Color::operator=(const Color &c)
 	return *this;
 }
 
-__forceinline Color &Color::operator+=(const Color c)
+__forceinline Color &Color::operator+=(const Color &c)
 {
 	r += c.r;
 	g += c.g;
@@ -84,7 +94,7 @@ __forceinline Color &Color::operator+=(const Color c)
 	return *this;
 }
 
-__forceinline Color &Color::operator-=(const Color c)
+__forceinline Color &Color::operator-=(const Color &c)
 {
 	r -= c.r;
 	g -= c.g;
@@ -111,12 +121,12 @@ __forceinline Color &Color::operator/=(const float f)
 	return *this;
 }
 
-inline Color Color::operator+(const Color c) const
+inline Color Color::operator+(const Color &c) const
 {
 	return Color(r + c.r, g + c.g, b + c.b);
 }
 
-inline Color Color::operator-(const Color c) const
+inline Color Color::operator-(const Color &c) const
 {
 	return Color(r - c.r, g - c.g, b - c.b);
 }
@@ -131,12 +141,12 @@ inline Color Color::operator/(const float f) const
 	return Color(static_cast<_c>(r / (f + DBL_EPSILON)), static_cast<_c>(g / (f + DBL_EPSILON)), static_cast<_c>(b / (f + DBL_EPSILON)));
 }
 
-inline bool Color::operator==(const Color c) const
+inline bool Color::operator==(const Color &c) const
 {
 	return c.r == r && c.g == g && c.b == b;
 }
 
-inline bool Color::operator!=(const Color c) const
+inline bool Color::operator!=(const Color &c) const
 {
 	return c.r != r || c.g != g || c.b != b;
 }
@@ -150,7 +160,7 @@ inline float Color::Hue() const
 {
 	float max = (r > g && r > b) ? r : g > b ? g : b;
 
-	if (max == 0.f)
+	if (fabs(max - 0.f) < DBL_EPSILON)
 		return 0.f;
 
 	float min = (r < g && r < b) ? r : g < b ? g : b;
@@ -165,9 +175,9 @@ inline float Color::Hue() const
 	float _g = g / 255.f;
 	float _b = b / 255.f;
 
-	if (max == _r)
+	if (fabs(max - _r) < DBL_EPSILON)
 		hue = fmodf((_g - _b) / chroma, 6.f);
-	else if (max == _g)
+	else if (fabs(max - _g) < DBL_EPSILON)
 		hue = (_b - _r) / chroma + 2.f;
 	else
 		hue = (_r - _g) / chroma + 4.f;

@@ -7,16 +7,18 @@ void* g_hook::HookVMT(int iIndex, void* pOverride, void* pOrig, const char* szHo
 	g_utilList::console->Print(" Hooking %s... ", szHook);
 
 	DWORD dwProtect;
+	auto dwOverride = reinterpret_cast<DWORD>(pOverride);
 
-	auto dwVFunc = static_cast<DWORD*>(pOrig) + sizeof(DWORD) * iIndex;
-	int origFunc = *static_cast<DWORD*>(dwVFunc);
-	VirtualProtect(static_cast<void*>(dwVFunc), sizeof(DWORD), PAGE_EXECUTE_READWRITE, &dwProtect);
-	*static_cast<DWORD*>(dwVFunc) = reinterpret_cast<DWORD>(pOverride);
-	VirtualProtect(static_cast<void*>(dwVFunc), sizeof(DWORD), dwProtect, &dwProtect);
+	auto dwVFunc = *static_cast<DWORD*>(pOrig) + sizeof(DWORD) * iIndex; //-V620
+	auto origFunc = reinterpret_cast<void*>(*reinterpret_cast<DWORD*>(dwVFunc));
+
+	VirtualProtect(reinterpret_cast<void*>(dwVFunc), sizeof(DWORD), PAGE_EXECUTE_READWRITE, &dwProtect);
+	*reinterpret_cast<DWORD*>(dwVFunc) = dwOverride;
+	VirtualProtect(reinterpret_cast<void*>(dwVFunc), sizeof(DWORD), dwProtect, &dwProtect);
 
 	g_utilList::console->Print("Hooked!\n");
 
-	return reinterpret_cast<void*>(origFunc);
+	return origFunc;
 }
 
 void* g_hook::UnHookVMT(int iIndex, void* pOrig, const char* szHook)
@@ -26,13 +28,14 @@ void* g_hook::UnHookVMT(int iIndex, void* pOrig, const char* szHook)
 	g_utilList::console->Print(" UnHooking %s... ", szHook);
 
 	DWORD dwProtect;
+	auto dwOrig = reinterpret_cast<DWORD>(pOrig);
 
-	auto dwVFunc = static_cast<DWORD*>(pOrig) + sizeof(DWORD) * iIndex;
+	auto dwVFunc = static_cast<DWORD*>(pOrig) + sizeof(DWORD) * iIndex; //-V620
 	VirtualProtect(static_cast<void*>(dwVFunc), sizeof(DWORD), PAGE_EXECUTE_READWRITE, &dwProtect);
-	*static_cast<DWORD*>(dwVFunc) = reinterpret_cast<DWORD>(pOrig);
+	*static_cast<DWORD*>(dwVFunc) = dwOrig;
 	VirtualProtect(static_cast<void*>(dwVFunc), sizeof(DWORD), dwProtect, &dwProtect);
 
-	g_utilList::console->Print(" UnHooked!\n");
+	g_utilList::console->Print("UnHooked!\n");
 
 	return nullptr;
 }
@@ -84,6 +87,18 @@ DWORD g_hook::dwFindPattern(char* hModule, char* szPattern, char* szMask, const 
 
 	g_utilList::console->Print("%s not found\n", szName);
 	return NULL;
+}
+
+extern ClientModeFn oClientMode;
+extern PaintTraverseFn oPaintTraverse;
+
+void g_hook::HookAll()
+{
+	g_utilList::exception->traceLastFunction(__FUNCSIG__, __FUNCDNAME__);
+
+	//oClientMode = static_cast<ClientModeFn>(g_utilList::hook->HookVMT(21, g_ClientMode::Main, g_Interfaces::clientmode,  "ClientMode"));
+	oPaintTraverse = static_cast<PaintTraverseFn>(g_utilList::hook->HookVMT(41, g_PaintTraverse::Main, g_Interfaces::panel, "PaintTraverse"));
+	Sleep(100);
 }
 
 g_hook* g_utilList::hook = new g_hook;

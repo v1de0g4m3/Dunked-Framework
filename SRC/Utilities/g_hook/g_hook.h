@@ -7,6 +7,7 @@ public:
 	static void* UnHookVMT(int iIndex, void* pOrig, const char* szHook);
 	static MODULEINFO GetModuleInfo(char* szModule);
 	static DWORD dwFindPattern(char* hModule, char* szPattern, char* szMask, const char* szName);
+	static void HookAll();
 };
 
 template <typename T>

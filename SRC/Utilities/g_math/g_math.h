@@ -9,7 +9,7 @@ class g_math
 {
 public:
 	template <typename T>
-	T Clamp(const T& iVal, const T& iMin, const T& iMax)
+	static T Clamp(const T& iVal, const T& iMin, const T& iMax)
 	{
 		if (iVal > iMax)
 			return iMax;

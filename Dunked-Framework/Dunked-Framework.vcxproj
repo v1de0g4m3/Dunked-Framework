@@ -22,7 +22,8 @@
     <ProjectGuid>{2531D793-2A7E-4524-8138-97952CB3B629}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DunkedFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>
+    </WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -85,9 +86,12 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DUNKEDFRAMEWORK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -110,14 +114,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;DUNKEDFRAMEWORK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <SDLCheck>true</SDLCheck>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -144,11 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\SRC\Hooks\CreateMove\cmmain.cpp" />
+    <ClCompile Include="..\SRC\Hooks\PaintTraverse\pt_main.cpp" />
     <ClCompile Include="..\SRC\Interfaces\g_chclient\g_chclient.cpp" />
     <ClCompile Include="..\SRC\Interfaces\g_cliententitylist\g_cliententitylist.cpp" />
     <ClCompile Include="..\SRC\Interfaces\g_cvar\g_cvar.cpp" />
     <ClCompile Include="..\SRC\Interfaces\g_debugoverlay\g_debugoverlay.cpp" />
     <ClCompile Include="..\SRC\Interfaces\g_engineclient\g_engineclient.cpp" />
+    <ClCompile Include="..\SRC\Interfaces\g_input\g_input.cpp" />
     <ClCompile Include="..\SRC\Interfaces\g_interfacegrabber\g_interfacegrabber.cpp" />
     <ClCompile Include="..\SRC\Interfaces\g_modeldata\g_modeldata.cpp" />
     <ClCompile Include="..\SRC\Interfaces\g_panel\g_panel.cpp" />
@@ -165,15 +172,19 @@
     <ClCompile Include="..\SRC\Utilities\g_netvar\g_netvaroffsets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\SRC\Hooks\CreateMove\cmmain.h" />
+    <ClInclude Include="..\SRC\Hooks\g_hooklist.h" />
+    <ClInclude Include="..\SRC\Hooks\PaintTraverse\pt_main.h" />
     <ClInclude Include="..\SRC\Interfaces\g_chclient\g_chclient.h" />
     <ClInclude Include="..\SRC\Interfaces\g_cliententitylist\g_cliententitylist.h" />
+    <ClInclude Include="..\SRC\Interfaces\g_cvar\g_cvar.h" />
     <ClInclude Include="..\SRC\Interfaces\g_debugoverlay\g_debugoverlay.h" />
     <ClInclude Include="..\SRC\Interfaces\g_engineclient\g_engineclient.h" />
+    <ClInclude Include="..\SRC\Interfaces\g_input\g_input.h" />
     <ClInclude Include="..\SRC\Interfaces\g_interfacegrabber\g_interfacegrabber.h" />
     <ClInclude Include="..\SRC\Interfaces\g_interfacelist.h" />
     <ClInclude Include="..\SRC\Interfaces\g_modeldata\g_modeldata.h" />
     <ClInclude Include="..\SRC\Interfaces\g_panel\g_panel.h" />
-    <ClInclude Include="..\SRC\Interfaces\g_pcvar\g_cvar.h" />
     <ClInclude Include="..\SRC\Interfaces\g_prediction\g_prediction.h" />
     <ClInclude Include="..\SRC\Interfaces\g_surface\g_surface.h" />
     <ClInclude Include="..\SRC\Interfaces\g_trace\g_trace.h" />

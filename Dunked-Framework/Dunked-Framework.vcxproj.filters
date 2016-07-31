@@ -81,6 +81,15 @@
     <Filter Include="Header Files\Interfaces\g_debugoverlay">
       <UniqueIdentifier>{299d2226-d3bb-4c48-8aaa-3a4b7aa1d562}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Hooks\CreateMove">
+      <UniqueIdentifier>{0356a7db-2831-4161-97dd-f8d4892abe13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaces\g_input">
+      <UniqueIdentifier>{a2fabe12-0aab-4374-8c6c-39407f6f6130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Hooks\PaintTraverse">
+      <UniqueIdentifier>{5be9b3b8-3c51-4364-83bf-51167a36594e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SRC\Main.cpp">
@@ -139,6 +148,15 @@
     </ClCompile>
     <ClCompile Include="..\SRC\Interfaces\g_debugoverlay\g_debugoverlay.cpp">
       <Filter>Header Files\Interfaces\g_debugoverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\Hooks\CreateMove\cmmain.cpp">
+      <Filter>Header Files\Hooks\CreateMove</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\Interfaces\g_input\g_input.cpp">
+      <Filter>Header Files\Interfaces\g_input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\Hooks\PaintTraverse\pt_main.cpp">
+      <Filter>Header Files\Hooks\PaintTraverse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,9 +217,6 @@
     <ClInclude Include="..\SRC\Interfaces\g_panel\g_panel.h">
       <Filter>Header Files\Interfaces\g_panel</Filter>
     </ClInclude>
-    <ClInclude Include="..\SRC\Interfaces\g_pcvar\g_cvar.h">
-      <Filter>Header Files\Interfaces\g_cvar</Filter>
-    </ClInclude>
     <ClInclude Include="..\SRC\Interfaces\g_surface\g_surface.h">
       <Filter>Header Files\Interfaces\g_surface</Filter>
     </ClInclude>
@@ -222,6 +237,21 @@
     </ClInclude>
     <ClInclude Include="..\SRC\Interfaces\g_debugoverlay\g_debugoverlay.h">
       <Filter>Header Files\Interfaces\g_debugoverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Hooks\CreateMove\cmmain.h">
+      <Filter>Header Files\Hooks\CreateMove</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Hooks\g_hooklist.h">
+      <Filter>Header Files\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Interfaces\g_cvar\g_cvar.h">
+      <Filter>Header Files\Interfaces\g_cvar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Interfaces\g_input\g_input.h">
+      <Filter>Header Files\Interfaces\g_input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Hooks\PaintTraverse\pt_main.h">
+      <Filter>Header Files\Hooks\PaintTraverse</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

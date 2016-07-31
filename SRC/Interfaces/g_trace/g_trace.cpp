@@ -12,7 +12,7 @@ void g_EngineTrace::TraceRay(const Ray_t& ray, unsigned int fMask, CTraceFilter*
 	return vfunc<vFuncFn>(this, 4)(this, ray, fMask, pTraceFilter, pTrace);
 }
 
-trace_t g_EngineTrace::Trace(Vector vStart, Vector vEnd, unsigned int iMask, CBaseEntity* pFilter)
+trace_t g_EngineTrace::Trace(const Vector& vStart, const  Vector& vEnd, unsigned int iMask, CBaseEntity* pFilter)
 {
 	trace_t tr;
 	Ray_t ray;

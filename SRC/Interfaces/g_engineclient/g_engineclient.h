@@ -1,7 +1,7 @@
 #pragma once
 
 struct player_info_t
-{
+{ //-V802
 	char			name[32];
 	int				userID;
 	char			guid[33];

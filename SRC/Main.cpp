@@ -14,6 +14,9 @@
 */
 #include "sdk.h"
 
+ClientModeFn oClientMode;
+PaintTraverseFn oPaintTraverse;
+
 unsigned int __stdcall Dunked::Init(void*)
 {
 	g_utilList::exception->traceLastFunction(__FUNCSIG__, __FUNCDNAME__);
@@ -29,6 +32,7 @@ unsigned int __stdcall Dunked::Init(void*)
 	g_utilList::console->Print(" Build Time: %s\n", BUILDTIME);
 
 	g_Interfaces::grab->dump();
+	g_utilList::hook->HookAll();
 	g_utilList::offsets->DumpNetvars();
 
 	Beep(512, 1000);
@@ -43,11 +47,27 @@ void Dunked::DeInit()
 	delete g_utilList::hook;
 	delete g_utilList::netvar;
 	delete g_utilList::offsets;
+	delete g_utilList::math;
 
 	// Interface deallocate
-	delete g_Interfaces::grab;
 	delete g_Interfaces::client;
 	delete g_Interfaces::globaldata;
+	delete g_Interfaces::entlist;
+	delete g_Interfaces::clientmode;
+	delete g_Interfaces::cvar;
+	delete g_Interfaces::cvarsearch;
+	delete g_Interfaces::debugoverlay;
+	delete g_Interfaces::engine;
+	delete g_Interfaces::input;
+	delete g_Interfaces::grab;
+	delete g_Interfaces::panel;
+	delete g_Interfaces::modeldata;
+	delete g_Interfaces::gamemovement;
+	delete g_Interfaces::prediction;
+	delete g_Interfaces::movehelper;
+	delete g_Interfaces::surface;
+	delete g_Interfaces::surface2;
+	delete g_Interfaces::trace;
 }
 
 void DLLMainInit(HMODULE hModule)

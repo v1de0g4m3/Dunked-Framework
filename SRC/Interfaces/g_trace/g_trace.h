@@ -53,7 +53,7 @@ public:
 	{
 		return TRACE_EVERYTHING;
 	}
-	void* pSkip;
+	void* pSkip; //-V703
 };
 
 class CTraceFilterSkipTwoEntities : public ITraceFilter
@@ -94,7 +94,7 @@ public:
 	bool			allsolid;
 	bool			startsolid;
 
-	CBaseTrace() {}
+	CBaseTrace() {} //-V730
 };
 
 
@@ -112,7 +112,7 @@ public:
 	CBaseEntity*	m_pEnt;
 	int				hitbox;
 
-	CGameTrace() {}
+	CGameTrace() {} //-V730
 }; typedef CGameTrace trace_t;
 
 struct Ray_t
@@ -160,5 +160,5 @@ class g_EngineTrace
 public:
 	int GetPointContents(const Vector& vecAbsPosition, CBaseEntity** ppEntity = nullptr);
 	void TraceRay(const Ray_t& ray, unsigned fMask, CTraceFilter* pTraceFilter, trace_t* pTrace);
-	static trace_t Trace(Vector vStart, Vector vEnd, unsigned iMask, CBaseEntity* pFilter = nullptr);
+	static trace_t Trace(const Vector& vStart, const Vector& vEnd, unsigned iMask, CBaseEntity* pFilter = nullptr);
 };

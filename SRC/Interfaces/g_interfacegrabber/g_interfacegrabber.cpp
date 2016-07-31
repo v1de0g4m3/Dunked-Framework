@@ -39,36 +39,46 @@ void* g_interfacegrabber::getAddress(const char* chModule, const char* chInterfa
 
 void g_interfacegrabber::dump()
 {
+	using namespace g_Interfaces;
+
 	g_utilList::console->Print(" Waiting for game");
-	while (!GetModuleHandleA("client.dll") || !GetModuleHandleA("engine.dll") || !GetModuleHandleA("vgui2.dll") || !GetModuleHandleA("vguimatsurface.dll"))
+	while (!GetModuleHandleA("client.dll") 
+		|| !GetModuleHandleA("engine.dll") 
+		|| !GetModuleHandleA("vgui2.dll") 
+		|| !GetModuleHandleA("vguimatsurface.dll")
+		|| !GetModuleHandleA("vstdlib.dll")
+		|| !GetModuleHandleA("inputsystem.dll"))
 	{
 		g_utilList::console->Print(".");
 		Sleep(500);
 	}
 	g_utilList::console->Print(" Game Started\n");
 
-	g_Interfaces::client = static_cast<g_chclient*>(g_Interfaces::grab->getAddress("client.dll", "VClient"));
+	Sleep(1000);
+	client = static_cast<g_chclient*>(grab->getAddress("client.dll", "VClient"));
 
-	g_Interfaces::clientmode = **reinterpret_cast<void***>((*reinterpret_cast<DWORD**>(g_Interfaces::client))[10] + 0x5);
-	g_Interfaces::globaldata = reinterpret_cast<g_globaldata*>(g_utilList::hook->dwFindPattern("client.dll", "\xA1\x00\x00\x00\x00\xD9\x40\x10\x56\x83\xEC\x08", "x????xxxxxxx", "globalddata"));
-	// \xA1\x00\x00\x00\x00\xD9\x40\x10\x56\x83\xEC\x08 x????xxxxxxx LOVE YOU DAZ FOR THE HELP <3
+	do
+	{
+		clientmode = **reinterpret_cast<void***>((*reinterpret_cast<DWORD**>(client))[10] + 0x5);
+		globaldata = reinterpret_cast<g_globaldata*>(g_utilList::hook->dwFindPattern("client.dll", "\xA1\x00\x00\x00\x00\xD9\x40\x10\x56\x83\xEC\x08", "x????xxxxxxx", "globalddata"));
+	} while (clientmode == nullptr || globaldata == nullptr);
+	
 
-	g_Interfaces::prediction = static_cast<g_prediction*>(g_Interfaces::grab->getAddress("client.dll", "VClientPrediction"));
-	g_Interfaces::entlist = static_cast<g_cliententitylist*>(g_Interfaces::grab->getAddress("client.dll", "VClientEntityList"));
-	g_Interfaces::gamemovement = static_cast<g_gamemovement*>(g_Interfaces::grab->getAddress("client.dll", "GameMovement"));
+	prediction = static_cast<g_prediction*>(grab->getAddress("client.dll", "VClientPrediction"));
+	entlist = static_cast<g_cliententitylist*>(grab->getAddress("client.dll", "VClientEntityList"));
+	gamemovement = static_cast<g_gamemovement*>(grab->getAddress("client.dll", "GameMovement"));
 
-	g_Interfaces::engine = static_cast<g_engineclient*>(g_Interfaces::grab->getAddress("engine.dll", "VEngineClient"));
-	g_Interfaces::trace = static_cast<g_EngineTrace*>(g_Interfaces::grab->getAddress("engine.dll", "EngineTraceClient"));
-	g_Interfaces::modeldata = static_cast<g_modeldata*>(g_Interfaces::grab->getAddress("engine.dll", "VModelInfoClient"));
-	g_Interfaces::debugoverlay = static_cast<g_debugoverlay*>(g_Interfaces::grab->getAddress("engine.dll", "VDebugOverlay"));
+	engine = static_cast<g_engineclient*>(grab->getAddress("engine.dll", "VEngineClient"));
+	trace = static_cast<g_EngineTrace*>(grab->getAddress("engine.dll", "EngineTraceClient"));
+	modeldata = static_cast<g_modeldata*>(grab->getAddress("engine.dll", "VModelInfoClient"));
+	debugoverlay = static_cast<g_debugoverlay*>(grab->getAddress("engine.dll", "VDebugOverlay"));
 
-	g_Interfaces::surface = static_cast<g_surface*>(g_Interfaces::grab->getAddress("vguimatsurface.dll", "VGUI_Surface"));
-	g_Interfaces::panel = static_cast<g_panel*>(g_Interfaces::grab->getAddress("vgui2.dll", "VGUI_Panel"));
-	g_Interfaces::input = static_cast<void*>(g_Interfaces::grab->getAddress("inputsystem.dll", "InputSystemVersion"));
-	g_Interfaces::cvar = static_cast<g_cvar*>(g_Interfaces::grab->getAddress("vstdlib.dll", "VEngineCvar"));	
+	surface = static_cast<g_surface*>(grab->getAddress("vguimatsurface.dll", "VGUI_Surface"));
+	panel = static_cast<g_panel*>(grab->getAddress("vgui2.dll", "VGUI_Panel"));
+	input = static_cast<g_input*>(grab->getAddress("inputsystem.dll", "InputSystemVersion"));
+	cvar = static_cast<g_cvar*>(grab->getAddress("vstdlib.dll", "VEngineCvar"));	
 }
 
 g_interfacegrabber* g_Interfaces::grab = new g_interfacegrabber;
 void* g_Interfaces::clientmode;
-void* g_Interfaces::input;
 

@@ -5,6 +5,7 @@
 #include "g_cvar/g_cvar.h"
 #include "g_debugoverlay/g_debugoverlay.h"
 #include "g_engineclient/g_engineclient.h"
+#include "g_input/g_input.h"
 #include "g_interfacegrabber/g_interfacegrabber.h"
 #include "g_modeldata/g_modeldata.h"
 #include "g_panel/g_panel.h"
@@ -19,10 +20,10 @@ namespace g_Interfaces
 	extern g_cliententitylist* entlist;
 	extern void* clientmode;
 	extern g_cvar* cvar;
-	extern g_debugoverlay* debugoverlay;
 	extern g_cvarsearch* cvarsearch;
+	extern g_debugoverlay* debugoverlay;
 	extern g_engineclient* engine;
-	extern void* input;
+	extern g_input* input;
 	extern g_interfacegrabber* grab;
 	extern g_panel* panel;
 	extern g_modeldata* modeldata;
