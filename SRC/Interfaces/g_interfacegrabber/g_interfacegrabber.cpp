@@ -1,15 +1,7 @@
 #include "../../sdk.h"
 
-void* g_interfacegrabber::getAddress(const char* chModule, const char* chInterface)
+void* g_interfacegrabber::getAddress(HMODULE hModule, const char* chInterface)
 {
-	HMODULE hModule;
-
-	do
-	{
-		hModule = GetModuleHandleA(chModule);
-		Sleep(50);
-	} while (hModule == nullptr);
-
 	char chInterfaceName[1024];
 	chInterfaceName[0] = '\0';
 
@@ -37,25 +29,41 @@ void* g_interfacegrabber::getAddress(const char* chModule, const char* chInterfa
 	return nullptr;
 }
 
+void g_interfacegrabber::CheckValidModules()
+{
+	using g_Interfaces::grab;
+
+	g_utilList::console->Print(" Waiting for game");
+
+	do
+	{
+		grab->hClient = GetModuleHandleA("client.dll");
+		grab->hEngine = GetModuleHandleA("engine.dll");
+		grab->hVgui2 = GetModuleHandleA("vgui2.dll");
+		grab->hVguimatsurface = GetModuleHandleA("vguimatsurface.dll");
+		grab->hVstdlib = GetModuleHandleA("vstdlib.dll");
+		grab->hInputsystem = GetModuleHandleA("inputsystem.dll");
+		g_utilList::console->Print(".");
+		Sleep(250);
+	} while (grab->hClient == nullptr 
+		|| grab->hEngine == nullptr 
+		|| grab->hVgui2 == nullptr 
+		|| grab->hVguimatsurface == nullptr 
+		|| grab->hVstdlib == nullptr 
+		|| grab->hInputsystem == nullptr);
+
+	g_utilList::console->Print(" Game Started\n");
+}
+
 void g_interfacegrabber::dump()
 {
 	using namespace g_Interfaces;
+	using g_Interfaces::grab;
 
-	g_utilList::console->Print(" Waiting for game");
-	while (!GetModuleHandleA("client.dll") 
-		|| !GetModuleHandleA("engine.dll") 
-		|| !GetModuleHandleA("vgui2.dll") 
-		|| !GetModuleHandleA("vguimatsurface.dll")
-		|| !GetModuleHandleA("vstdlib.dll")
-		|| !GetModuleHandleA("inputsystem.dll"))
-	{
-		g_utilList::console->Print(".");
-		Sleep(500);
-	}
-	g_utilList::console->Print(" Game Started\n");
+	CheckValidModules();
 
 	Sleep(1000);
-	client = static_cast<g_chclient*>(grab->getAddress("client.dll", "VClient"));
+	client = static_cast<g_chclient*>(grab->getAddress(grab->hClient, "VClient"));
 
 	do
 	{
@@ -64,19 +72,22 @@ void g_interfacegrabber::dump()
 	} while (clientmode == nullptr || globaldata == nullptr);
 	
 
-	prediction = static_cast<g_prediction*>(grab->getAddress("client.dll", "VClientPrediction"));
-	entlist = static_cast<g_cliententitylist*>(grab->getAddress("client.dll", "VClientEntityList"));
-	gamemovement = static_cast<g_gamemovement*>(grab->getAddress("client.dll", "GameMovement"));
+	prediction = static_cast<g_prediction*>(grab->getAddress(grab->hClient, "VClientPrediction"));
+	entlist = static_cast<g_cliententitylist*>(grab->getAddress(grab->hClient, "VClientEntityList"));
+	gamemovement = static_cast<g_gamemovement*>(grab->getAddress(grab->hClient, "GameMovement"));
 
-	engine = static_cast<g_engineclient*>(grab->getAddress("engine.dll", "VEngineClient"));
-	trace = static_cast<g_EngineTrace*>(grab->getAddress("engine.dll", "EngineTraceClient"));
-	modeldata = static_cast<g_modeldata*>(grab->getAddress("engine.dll", "VModelInfoClient"));
-	debugoverlay = static_cast<g_debugoverlay*>(grab->getAddress("engine.dll", "VDebugOverlay"));
+	engine = static_cast<g_engineclient*>(grab->getAddress(grab->hEngine, "VEngineClient"));
+	trace = static_cast<g_EngineTrace*>(grab->getAddress(grab->hEngine, "EngineTraceClient"));
+	modeldata = static_cast<g_modeldata*>(grab->getAddress(grab->hEngine, "VModelInfoClient"));
+	debugoverlay = static_cast<g_debugoverlay*>(grab->getAddress(grab->hEngine, "VDebugOverlay"));
 
-	surface = static_cast<g_surface*>(grab->getAddress("vguimatsurface.dll", "VGUI_Surface"));
-	panel = static_cast<g_panel*>(grab->getAddress("vgui2.dll", "VGUI_Panel"));
-	input = static_cast<g_input*>(grab->getAddress("inputsystem.dll", "InputSystemVersion"));
-	cvar = static_cast<g_cvar*>(grab->getAddress("vstdlib.dll", "VEngineCvar"));	
+	surface = static_cast<g_surface*>(grab->getAddress(grab->hVguimatsurface, "VGUI_Surface"));
+
+	panel = static_cast<g_panel*>(grab->getAddress(grab->hVgui2, "VGUI_Panel"));
+
+	input = static_cast<g_input*>(grab->getAddress(grab->hInputsystem, "InputSystemVersion"));
+
+	cvar = static_cast<g_cvar*>(grab->getAddress(grab->hVstdlib, "VEngineCvar"));
 }
 
 g_interfacegrabber* g_Interfaces::grab = new g_interfacegrabber;

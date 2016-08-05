@@ -74,23 +74,20 @@ void g_surface::SetCursorAlwaysVisible(bool bVisible)
 
 // Surface2
 
-void g_surface2::DrawTextA(unsigned long uFont, int iX, int iY, int iAlignType, const Color& rgColor, const char* chText, ...) const
+void g_surface2::DrawTextA(unsigned long uFont, int iX, int iY, int iAlignType, const Color& rgColor, const char* chText, ...)
 {
 	if (!uFont)
 		return;
 
-	char format[1024];
-	format[0] = '\0';
-	va_list args;
-	__crt_va_start(args, chText);
-	size_t len = vsprintf_s(format, chText, args);
-	__crt_va_end(args);
-
-	auto wformat = new wchar_t[len + 1];
-	mbstowcs(wformat, format, len + 1);
+	int len = strlen(chText);
+	wchar_t* wBuf = new wchar_t[len];
+	for (int i = 0; i < len; i++)
+	{
+		wBuf[i] = chText[i];
+	}
 
 	int iW, iH;
-	g_Interfaces::surface->GetTextSize(uFont, wformat, iW, iH);
+	g_Interfaces::surface->GetTextSize(uFont, wBuf, iW, iH);
 
 	if (iAlignType == 1)
 		iX -= iW;
@@ -100,9 +97,9 @@ void g_surface2::DrawTextA(unsigned long uFont, int iX, int iY, int iAlignType, 
 	g_Interfaces::surface->DrawSetTextColor(rgColor.r, rgColor.g, rgColor.b, rgColor.a);
 	g_Interfaces::surface->DrawSetTextFont(uFont);
 	g_Interfaces::surface->DrawSetTextPos(iX, iY);
-	g_Interfaces::surface->DrawPrintText(wformat, len);
+	g_Interfaces::surface->DrawPrintText(wBuf, len);
 
-	delete[] wformat;
+	delete[] wBuf;
 }
 
 void g_surface2::DrawGradient(int x, int y, int w, int h, const Color& color, int iTR)

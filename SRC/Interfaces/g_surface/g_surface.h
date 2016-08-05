@@ -56,6 +56,6 @@ public:
 class g_surface2
 {
 public:
-	void DrawTextA(unsigned long, int, int, int, const Color&, const char*, ...) const;
+	static void DrawTextA(unsigned long, int, int, int, const Color&, const char*, ...);
 	static void DrawGradient(int x, int y, int w, int h, const Color& color, int iTR = 1);
 };

@@ -55,7 +55,7 @@ public:
 	CVerifiedUserCmd*	m_pVerifiedCommands;			//0xF0
 };
 
-typedef void(__thiscall* ClientModeFn)(void*, float, CUserCmd*);
+typedef bool(__thiscall* ClientModeFn)(void*, float, CUserCmd*);
 
 namespace g_ClientMode
 {
