@@ -43,6 +43,7 @@ void g_interfacegrabber::CheckValidModules()
 		grab->hVguimatsurface = GetModuleHandleA("vguimatsurface.dll");
 		grab->hVstdlib = GetModuleHandleA("vstdlib.dll");
 		grab->hInputsystem = GetModuleHandleA("inputsystem.dll");
+		grab->hLuashared = GetModuleHandleA("lua_shared.dll");
 		g_utilList::console->Print(".");
 		Sleep(250);
 	} while (grab->hClient == nullptr 
@@ -50,7 +51,8 @@ void g_interfacegrabber::CheckValidModules()
 		|| grab->hVgui2 == nullptr 
 		|| grab->hVguimatsurface == nullptr 
 		|| grab->hVstdlib == nullptr 
-		|| grab->hInputsystem == nullptr);
+		|| grab->hInputsystem == nullptr
+		|| grab->hLuashared == nullptr);
 
 	g_utilList::console->Print(" Game Started\n");
 }
@@ -88,8 +90,11 @@ void g_interfacegrabber::dump()
 	input = static_cast<g_input*>(grab->getAddress(grab->hInputsystem, "InputSystemVersion"));
 
 	cvar = static_cast<g_cvar*>(grab->getAddress(grab->hVstdlib, "VEngineCvar"));
+
+	luashared = static_cast<g_LuaShared*>(grab->getAddress(grab->hLuashared, "LUASHARED"));
 }
 
 g_interfacegrabber* g_Interfaces::grab = new g_interfacegrabber;
 void* g_Interfaces::clientmode;
+g_LuaShared* g_Interfaces::luashared;
 

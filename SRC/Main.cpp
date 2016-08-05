@@ -34,6 +34,7 @@ unsigned int __stdcall Dunked::Init(void*)
 	g_Interfaces::grab->dump();
 	g_utilList::hook->HookAll();
 	g_utilList::offsets->DumpNetvars();
+	g_LuaInit::InitalizeMenuState();
 
 	Beep(512, 1000);
 	return 1;

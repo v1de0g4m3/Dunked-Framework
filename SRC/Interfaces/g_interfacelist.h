@@ -7,6 +7,7 @@
 #include "g_engineclient/g_engineclient.h"
 #include "g_input/g_input.h"
 #include "g_interfacegrabber/g_interfacegrabber.h"
+#include "g_lua/g_lua.h"
 #include "g_modeldata/g_modeldata.h"
 #include "g_panel/g_panel.h"
 #include "g_prediction/g_prediction.h"
@@ -25,6 +26,8 @@ namespace g_Interfaces
 	extern g_engineclient* engine;
 	extern g_input* input;
 	extern g_interfacegrabber* grab;
+	extern g_lua* lua;
+	extern g_LuaShared* luashared;
 	extern g_panel* panel;
 	extern g_modeldata* modeldata;
 	extern g_gamemovement* gamemovement;

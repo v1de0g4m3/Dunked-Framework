@@ -90,6 +90,24 @@
     <Filter Include="Header Files\Hooks\PaintTraverse">
       <UniqueIdentifier>{5be9b3b8-3c51-4364-83bf-51167a36594e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interfaces\g_lua">
+      <UniqueIdentifier>{088fcc78-1100-438e-8311-88d6d426727e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lua Functions">
+      <UniqueIdentifier>{79bc698a-c2ee-48ce-8b02-ed41cb5f2f04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lua Functions\g_luainit">
+      <UniqueIdentifier>{edbf0064-7846-4c03-8637-921cbf5a1d03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lua Functions\lua_globals">
+      <UniqueIdentifier>{60c46556-925c-4391-b869-38cc938d8269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lua Functions\lua_usercmd">
+      <UniqueIdentifier>{40260498-23e7-45e7-9869-5e9de5ba1457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lua Functions\lua_metatables">
+      <UniqueIdentifier>{d82673f1-4a6c-49bd-bc2c-115cec471bae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SRC\Main.cpp">
@@ -157,6 +175,21 @@
     </ClCompile>
     <ClCompile Include="..\SRC\Hooks\PaintTraverse\pt_main.cpp">
       <Filter>Header Files\Hooks\PaintTraverse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\Interfaces\g_lua\g_lua.cpp">
+      <Filter>Header Files\Interfaces\g_lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\Lua Functions\g_luainit\g_luainit.cpp">
+      <Filter>Header Files\Lua Functions\g_luainit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\Lua Functions\lua_globals\lua_globals.cpp">
+      <Filter>Header Files\Lua Functions\lua_globals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\Lua Functions\lua_usercmd\lua_usercmd.cpp">
+      <Filter>Header Files\Lua Functions\lua_usercmd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\Lua Functions\lua_metatables\lua_metatables.cpp">
+      <Filter>Header Files\Lua Functions\lua_metatables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +285,24 @@
     </ClInclude>
     <ClInclude Include="..\SRC\Hooks\PaintTraverse\pt_main.h">
       <Filter>Header Files\Hooks\PaintTraverse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Interfaces\g_lua\g_lua.h">
+      <Filter>Header Files\Interfaces\g_lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Lua Functions\g_luafuncs.h">
+      <Filter>Header Files\Lua Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Lua Functions\g_luainit\g_luainit.h">
+      <Filter>Header Files\Lua Functions\g_luainit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Lua Functions\lua_globals\lua_globals.h">
+      <Filter>Header Files\Lua Functions\lua_globals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Lua Functions\lua_usercmd\lua_usercmd.h">
+      <Filter>Header Files\Lua Functions\lua_usercmd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Lua Functions\lua_metatables\lua_metatables.h">
+      <Filter>Header Files\Lua Functions\lua_metatables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

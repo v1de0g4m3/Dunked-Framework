@@ -12,6 +12,7 @@ static const char* BUILDTIME = __TIME__;
 
 #define _CRT_SECURE_NO_WARNINGS
 #define VC_EXTRALEAN
+#define LUA state->luabase
 
 using byte = unsigned char;
 
@@ -42,7 +43,9 @@ namespace Dunked
 // Interfaces
 #include "Interfaces/g_interfacelist.h"
 
-
 // Hooks
 #include "Hooks/g_hooklist.h"
+
+// Lua Functions
+#include "Lua Functions/g_luafuncs.h"
 
