@@ -55,9 +55,9 @@ public:
 	CVerifiedUserCmd*	m_pVerifiedCommands;			//0xF0
 };
 
-typedef bool(__thiscall* ClientModeFn)(void*, float, CUserCmd*);
+typedef bool(__fastcall* ClientModeFn)(void*, void*, float, CUserCmd*);
 
 namespace g_ClientMode
 {
-	extern bool __fastcall Main(void*, float input, CUserCmd*);
+	extern bool __fastcall Main(void*, void*, float input, CUserCmd*);
 }

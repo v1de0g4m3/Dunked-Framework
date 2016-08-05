@@ -2,9 +2,9 @@
 
 extern ClientModeFn oClientMode;
 
-bool __fastcall g_ClientMode::Main(void* ecx, float input, CUserCmd* pCmd)
+bool __fastcall g_ClientMode::Main(void* ecx, void* edx, float input, CUserCmd* pCmd)
 {
-	oClientMode(ecx, input, pCmd);
+	oClientMode(ecx, edx, input, pCmd);
 
 	//pCmd->viewangles.x = rand() % 89;
 

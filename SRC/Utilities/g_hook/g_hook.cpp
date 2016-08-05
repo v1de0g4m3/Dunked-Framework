@@ -102,7 +102,7 @@ void g_hook::HookAll()
 {
 	g_utilList::exception->traceLastFunction(__FUNCSIG__, __FUNCDNAME__);
 
-	//oClientMode = static_cast<ClientModeFn>(g_utilList::hook->HookVMT(21, g_ClientMode::Main, g_Interfaces::clientmode, "ClientMode"));
+	oClientMode = static_cast<ClientModeFn>(g_utilList::hook->HookVMT(21, g_ClientMode::Main, g_Interfaces::clientmode, "ClientMode"));
 	oPaintTraverse = static_cast<PaintTraverseFn>(g_utilList::hook->HookVMT(41, g_PaintTraverse::Main, g_Interfaces::panel, "PaintTraverse"));
 	Sleep(100);
 }
