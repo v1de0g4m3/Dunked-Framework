@@ -7,4 +7,6 @@ namespace _G
 
 	extern const char* szLastFuncName;
 	extern const char* szLastFuncSig;
+
+	extern CUserCmd* pCmd;
 }

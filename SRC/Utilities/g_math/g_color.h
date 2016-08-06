@@ -53,7 +53,7 @@ inline Color::Color(const int i)
 	*reinterpret_cast<int*>(this) = i;
 }
 
-inline Color::Color(const _c _r, const _c _g, const _c _b, const _c _a = 255)
+inline Color::Color(const _c _r, const _c _g, const _c _b, const _c _a = static_cast<const _c>(255))
 {
 	r = _r;
 	g = _g;

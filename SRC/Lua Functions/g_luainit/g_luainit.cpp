@@ -7,7 +7,8 @@ void g_LuaInit::InitalizeMenuState()
 	auto ILuaMenuState = g_Interfaces::lua->GetMenuState();
 
 	ILuaMenuState->PushSpecial(SPECIAL_GLOB);
-	
+	ILuaMenuState->CreateTable();
+
 	//CUserCmd
 	lua_usercmd::Initialize(ILuaMenuState);
 

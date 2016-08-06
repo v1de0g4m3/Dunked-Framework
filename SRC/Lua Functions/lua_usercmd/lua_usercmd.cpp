@@ -27,12 +27,12 @@ void lua_usercmd::Initialize(g_LuaInterface* menustate)
 
 	menustate->ReferenceFree(ref);
 
-	menustate->Pop();
+	menustate->Pop(3);
 }
 
 int lua_usercmd::GetCommandNumber(lua_State* state)
 {
-	auto pCmd = static_cast<CUserCmd*>(LUA->GetUserdata(1)->data);
+	auto pCmd = _G::pCmd;
 	if (!pCmd)
 		return 1;
 

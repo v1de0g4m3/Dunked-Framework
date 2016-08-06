@@ -7,6 +7,7 @@
 
 	Credits to:
 		Ley - For starting the original project
+		Herp Derpinstine - For putting up with constant questions and my general retardation
 		Mythik - For giving me the idea to write my own
 		Senator@cheater.team - Tons of help, collabed with many many cheats, many more in the future
 		Snipwnage - Color, Vector, Angle classes (I got lazy)

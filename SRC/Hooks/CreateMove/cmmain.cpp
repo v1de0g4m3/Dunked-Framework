@@ -6,9 +6,11 @@ bool __fastcall g_ClientMode::Main(void* ecx, void* edx, float input, CUserCmd* 
 {
 	oClientMode(ecx, edx, input, pCmd);
 
+	_G::pCmd = pCmd;
+
 	//pCmd->viewangles.x = rand() % 89;
 
-	g_utilList::console->Print("%f\n", pCmd->viewangles.x);
+	//g_utilList::console->Print("%f\n", pCmd->viewangles.x);
 
 	return false;
 }

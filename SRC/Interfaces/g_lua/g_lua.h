@@ -244,10 +244,6 @@ namespace Bootil
 class g_LuaInterface
 {
 public:
-	virtual ~g_LuaInterface()
-	{
-	}
-
 	virtual int Top(void) = 0; //0000
 	virtual void Push(int iStackPos) = 0; //0004
 	virtual void Pop(int iAmt = 1) = 0; //0008
