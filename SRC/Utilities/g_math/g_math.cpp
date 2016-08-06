@@ -10,6 +10,104 @@ float g_math::Deg2Rad(float x)
 	return (x * (M_PI / 180.0f));
 }
 
+float g_math::Sin(float f)
+{
+	static const float A = 7.57424729353990669582E-03f;
+	static const float B = -1.65827042313329378398E-01f;
+	static const float C = 9.99771407817154332926E-01f;
+
+	int k;
+	float f2;
+
+	/* find offset of f from the range -pi/2 to pi/2 */
+	k = static_cast<int>(Round(f * M_INVPI));
+
+	/* bring f into range */
+	f -= k * M_PI;
+
+	/* calculate sine */
+	f2 = f * f;
+	f = f * (C + f2 * (B + A * f2));
+
+	/* if f is in an odd pi count we must flip */
+	if (k % 2)
+		f = -f;
+
+	return f;
+}
+
+float g_math::Cos(float f)
+{
+	static const float A = 3.72093273724652635657E-02f;
+	static const float B = -4.96392330120080597572E-01f;
+	static const float C = 9.99579515069196269871E-01f;
+
+	int k;
+	float f2;
+
+	/* find offset of f from the range -pi/2 to pi/2 */
+	k = static_cast<int>(Round(f * M_INVPI));
+
+	/* bring f into range */
+	f -= k * M_PI;
+
+	/* calculate cosine */
+	f2 = f * f;
+	f = C + f2 * (B + (A * f2));
+
+	/* if f is in an odd pi count we must flip */
+	if (k % 2)
+		f = -f;
+
+	return f;
+}
+
+float g_math::Tan(float f)
+{
+	static const float SA = 7.57424729353990669582E-03f;
+	static const float SB = -1.65827042313329378398E-01f;
+	static const float SC = 9.99771407817154332926E-01f;
+
+	static const float CA = 3.72093273724652635657E-02f;
+	static const float CB = -4.96392330120080597572E-01f;
+	static const float CC = 9.99579515069196269871E-01f;
+
+	int k;
+	float f2;
+
+	/* find offset of f from the range -pi/2 to pi/2 */
+	k = static_cast<int>(Round(f * M_INVPI));
+
+	/* bring f into range */
+	f -= k * M_PI;
+
+	/* calculate sine and cosine*/
+	f2 = f * f;
+
+	float s = f * (SC + f2 * (SB + SA * f2));
+	float c = CC + f2 * (CB + (CA * f2));
+
+	/* if f is in an odd pi count we must flip */
+	if (k % 2) {
+		s = -s;
+		c = -c;
+	}
+
+	return s / c;
+}
+
+float g_math::Sqrt(const float f)
+{
+	__m128 mm1 = _mm_set_ss(f);
+	__m128 mm2 = _mm_sqrt_ss(mm1);
+	return _mm_cvtss_f32(mm2);
+}
+
+float g_math::InvSqrt(float x)
+{
+	return 1.0f / Sqrt(x);
+}
+
 void g_math::SinCos(float f, float& s, float& c)
 {
 	static const float SA = 7.57424729353990669582E-03f;
@@ -89,18 +187,18 @@ void g_math::AngleVectors(const Angle& angles, Vector* forward, Vector* right, V
 	}
 }
 
-void g_math::AngleVectors(const Angle& angles, float* forward, float* right, float* up) const
+void g_math::AngleVectors(const Angle& angles, float* forward, float* right, float* up)
 {
 	float angle;
 	static float sp, sy, cp, cy;
 
 	angle = angles[0] * (M_PI / 180.f);
-	sp = sin(angle);
-	cp = cos(angle);
+	sp = Sin(angle);
+	cp = Cos(angle);
 
 	angle = angles[1] * (M_PI / 180.f);
-	sy = sin(angle);
-	cy = cos(angle);
+	sy = Sin(angle);
+	cy = Cos(angle);
 
 	if (forward)
 	{
@@ -113,8 +211,8 @@ void g_math::AngleVectors(const Angle& angles, float* forward, float* right, flo
 		static float sr, cr;
 
 		angle = angles[2] * (M_PI / 180.f);
-		sr = sin(angle);
-		cr = cos(angle);
+		sr = Sin(angle);
+		cr = Cos(angle);
 
 		if (right)
 		{
@@ -135,7 +233,7 @@ void g_math::VectorAngles(Vector& forward, Angle& angles)
 {
 	float tmp, yaw, pitch;
 
-	if ((fabs(forward.y) < DBL_EPSILON) && (fabs(forward.x) < DBL_EPSILON))
+	if ((Abs(forward.y) < DBL_EPSILON) && (Abs(forward.x) < DBL_EPSILON))
 	{
 		yaw = 0;
 

@@ -8,15 +8,10 @@
 class g_math
 {
 public:
-	template <typename T>
-	static T Clamp(const T& iVal, const T& iMin, const T& iMax)
+	template<typename T>
+	static T Abs(const T x)
 	{
-		if (iVal > iMax)
-			return iMax;
-		if (iVal < iMin)
-			return iMin;
-
-		return iVal;
+		return x < static_cast<T>(0) ? -x : x;
 	}
 
 	static float Floor(const float f)
@@ -57,11 +52,16 @@ public:
 
 	static float Rad2Deg(float x);
 	static float Deg2Rad(float x);
+	static float Sin(float f);
+	static float Cos(float f);
+	static float Tan(float f);
+	static float Sqrt(const float f);
+	static float InvSqrt(float x);
 	static void SinCos(float x, float& s, float& c);
 
 	static void AngleVectors(const Angle& angles, Vector* forward);
 	static void AngleVectors(const Angle& angles, Vector* forward, Vector* right, Vector* up);
-	void AngleVectors(const Angle& angles, float* forward, float* right, float* up) const;
+	static void AngleVectors(const Angle& angles, float* forward, float* right, float* up);
 	static void VectorAngles(Vector& forward, Angle& angles);
 	static float DotProduct(const Vector& v1, const Vector& v2);
 	static void Transform(const Vector& vSome, const Matrix3x4& vMatrix, Vector& vOut);

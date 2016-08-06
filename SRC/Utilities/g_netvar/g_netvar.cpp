@@ -97,7 +97,6 @@ int g_netvar::GetProp(RecvTable *recvTable, const char *propName, RecvProp **pro
 	return extraOffset;
 }
 
-
 RecvTable *g_netvar::GetTable(const char *tableName) const
 {
 	g_utilList::exception->traceLastFunction(__FUNCSIG__, __FUNCDNAME__);
@@ -116,7 +115,6 @@ RecvTable *g_netvar::GetTable(const char *tableName) const
 
 	return nullptr;
 }
-
 
 void g_netvar::DumpTable(RecvTable *table) const
 {

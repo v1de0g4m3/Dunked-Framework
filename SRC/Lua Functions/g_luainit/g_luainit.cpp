@@ -2,6 +2,8 @@
 
 void g_LuaInit::InitalizeMenuState()
 {
+	g_utilList::exception->traceLastFunction(__FUNCSIG__, __FUNCDNAME__);
+
 	g_Interfaces::lua->InitLuaShared(g_Interfaces::luashared);
 
 	auto ILuaMenuState = g_Interfaces::lua->GetMenuState();

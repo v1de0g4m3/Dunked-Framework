@@ -1,4 +1,5 @@
 #define M_PI		3.14159265358979323846f
+#define M_INVPI     1 / M_PI
 #define M_RADPI		57.295779513082f
 #define RAD2DEG(x)	((float)(x) * (float)(180.f / M_PI))
 #define DEG2RAD(x)	((float)(x) / (float)(180.f / M_PI))

@@ -2,6 +2,8 @@
 
 void lua_usercmd::Initialize(g_LuaInterface* menustate)
 {
+	g_utilList::exception->traceLastFunction(__FUNCSIG__, __FUNCDNAME__);
+
 	// CUserCmd Shit
 	menustate->CreateMetaTableType("CUserCmd", TYPE_USERCMD);
 	g_LuaObject* pCmdMeta = menustate->GetMetaTableObject("CUserCmd", TYPE_USERCMD);
