@@ -8,7 +8,7 @@
 
 static const char* BUILDDATE = __DATE__;
 static const char* BUILDTIME = __TIME__;
-static const char* BUILDVERS = "0.2";
+static const char* BUILDVERS = "0.2a";
 
 #define _CRT_SECURE_NO_WARNINGS
 #define VC_EXTRALEAN

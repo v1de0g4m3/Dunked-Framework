@@ -57,9 +57,8 @@ void g_LuaInit::DisplayWelcomeMessage()
 	
 	g_utilList::console->ConsolePrint("\n", false);
 
-	std::stringstream Versinfo;
-	Versinfo << "Dunked-Framework Version " << BUILDVERS << " Initialized, Built on " << BUILDDATE << " at " << BUILDTIME << ".\n";
-	g_utilList::console->ConsolePrint(Versinfo.str().c_str(), false);
+	std::string Versinfo = std::string("Dunked-Framework Version ") + BUILDVERS + " Initialized, Built on " + BUILDDATE + " at " + BUILDTIME + ".\n";
+	g_utilList::console->ConsolePrint(Versinfo, false);
 
 	g_Interfaces::engine->ClientCmd("help");
 }

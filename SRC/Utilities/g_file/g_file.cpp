@@ -1,7 +1,7 @@
 #include "../../sdk.h"
 #include "time.h"
 
-bool g_file::FileCreate(std::string file, std::string content)
+bool g_file::FileCreate(const std::string& file, const std::string& content)
 {
 	if (FileExists(file))
 		return false;
@@ -14,7 +14,7 @@ bool g_file::FileCreate(std::string file, std::string content)
 	return true;
 }
 
-bool g_file::FileExists(std::string file)
+bool g_file::FileExists(const std::string& file)
 {
 	std::ifstream filestream(file.c_str());
 
@@ -28,7 +28,7 @@ bool g_file::FileExists(std::string file)
 	return false;
 }
 
-bool g_file::FileRead(std::string file, std::string & read) const
+bool g_file::FileRead(const std::string& file, std::string& read) const
 {
 	std::ifstream filestream;
 	filestream.open(file);
@@ -53,7 +53,7 @@ bool g_file::FileRead(std::string file, std::string & read) const
 	return true;
 }
 
-bool g_file::FileEdit(std::string file, std::string content)
+bool g_file::FileEdit(const std::string& file, const std::string& content)
 {
 	if (!FileDelete(file.c_str()))
 		return false;
@@ -61,7 +61,7 @@ bool g_file::FileEdit(std::string file, std::string content)
 	return FileCreate(file, content);
 }
 
-bool g_file::FileAppend(std::string file, std::string content)
+bool g_file::FileAppend(const std::string& file, const std::string& content)
 {
 	std::ofstream filestream;
 
@@ -72,7 +72,7 @@ bool g_file::FileAppend(std::string file, std::string content)
 	return true;
 }
 
-bool g_file::FileAppend_2(std::string file, std::string content)
+bool g_file::FileAppend_2(const std::string& file, const std::string& content)
 {
 	std::ofstream filestream;
 
@@ -86,22 +86,22 @@ bool g_file::FileAppend_2(std::string file, std::string content)
 	return true;
 }
 
-int g_file::FileDelete(std::string file)
+int g_file::FileDelete(const std::string& file)
 {
 	return remove(file.c_str());
 }
 
-int g_file::DirCreate(std::string dir)
+int g_file::DirCreate(const std::string& dir)
 {
 	return CreateDirectoryA(dir.c_str(), nullptr);
 }
 
-int g_file::DirDelete(std::string dir)
+int g_file::DirDelete(const std::string& dir)
 {
 	return RemoveDirectoryA(dir.c_str());
 }
 
-bool g_file::WriteToLog(std::string fmt, ...)
+bool g_file::WriteToLog(const std::string& fmt, ...)
 {
 	time_t now = time(nullptr);
 	struct tm tstruct;

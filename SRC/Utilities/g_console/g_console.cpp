@@ -33,7 +33,7 @@ void g_console::Print(std::string sMessage, ...)
 	g_utilList::file->WriteToLog(sMessage);
 }
 
-void g_console::centerPrint(std::string sMessage)
+void g_console::centerPrint(const std::string& sMessage)
 {
 	int l = sMessage.length();
 	auto pos = static_cast<int>((80 - l) / 2);
@@ -46,7 +46,7 @@ void g_console::centerPrint(std::string sMessage)
 typedef void(*msg)(char const* pMsg, ...);
 typedef void(*warning)(char const* pMsg, ...);
 
-void g_console::ConsolePrint(std::string sString, bool bWarn, ...)
+void g_console::ConsolePrint(const std::string& sString, bool bWarn, ...)
 {
 	auto Msg = reinterpret_cast<msg>(GetProcAddress(g_Interfaces::grab->hTier0, "Msg"));
 	auto Warning = reinterpret_cast<warning>(GetProcAddress(g_Interfaces::grab->hTier0, "Warning"));
