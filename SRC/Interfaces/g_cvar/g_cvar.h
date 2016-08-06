@@ -32,4 +32,6 @@ class g_cvarsearch
 {
 public:
 	g_cvar* FindVar(const char* var_name);
+	void ConsoleColorPrintf(const Color&, const char*, ...);
+	void ConsolePrintf(const char*, ...);
 };

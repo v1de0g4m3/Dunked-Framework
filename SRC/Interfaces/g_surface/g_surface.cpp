@@ -76,14 +76,11 @@ void g_surface::SetCursorAlwaysVisible(bool bVisible)
 
 void g_surface2::DrawTextA(unsigned long uFont, int iX, int iY, int iAlignType, const Color& rgColor, const char* chText, ...)
 {
-	if (!uFont)
-		return;
-
 	int len = strlen(chText);
 	wchar_t* wBuf = new wchar_t[len];
 	for (int i = 0; i < len; i++)
 	{
-		wBuf[i] = chText[i];
+		wBuf[i] = static_cast<wchar_t>(chText[i]);
 	}
 
 	int iW, iH;

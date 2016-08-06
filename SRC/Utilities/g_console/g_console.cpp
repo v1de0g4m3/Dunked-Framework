@@ -41,6 +41,23 @@ void g_console::centerPrint(const char* sMessage)
 	g_utilList::console->Print(sMessage);
 }
 
+typedef void(*msg)(char const* pMsg, ...);
+typedef void(*warning)(char const* pMsg, ...);
+
+void g_console::ConsolePrint(const char* szMsg, bool bWarn, ...)
+{
+	char pzBuffer[1024];
+	sprintf(pzBuffer, "%s", szMsg);
+
+	auto Msg = reinterpret_cast<msg>(GetProcAddress(g_Interfaces::grab->hTier0, "Msg"));
+	auto Warning = reinterpret_cast<warning>(GetProcAddress(g_Interfaces::grab->hTier0, "Warning"));
+
+	if (bWarn)
+		Warning(pzBuffer);
+	else
+		Msg(pzBuffer);
+}
+
 void g_console::Visible(bool bVisible)
 {
 	g_utilList::exception->traceLastFunction(__FUNCSIG__, __FUNCDNAME__);

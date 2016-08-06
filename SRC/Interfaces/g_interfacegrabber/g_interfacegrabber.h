@@ -15,4 +15,6 @@ public:
 	HMODULE hVstdlib = nullptr;
 	HMODULE hInputsystem = nullptr;
 	HMODULE hLuashared = nullptr;
+	HMODULE hGameui = nullptr;
+	HMODULE hTier0 = nullptr;
 };

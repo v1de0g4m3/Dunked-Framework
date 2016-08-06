@@ -185,6 +185,7 @@
     <ClInclude Include="..\SRC\Interfaces\g_cvar\g_cvar.h" />
     <ClInclude Include="..\SRC\Interfaces\g_debugoverlay\g_debugoverlay.h" />
     <ClInclude Include="..\SRC\Interfaces\g_engineclient\g_engineclient.h" />
+    <ClInclude Include="..\SRC\Interfaces\g_gameconsole\g_gameconsole.h" />
     <ClInclude Include="..\SRC\Interfaces\g_input\g_input.h" />
     <ClInclude Include="..\SRC\Interfaces\g_interfacegrabber\g_interfacegrabber.h" />
     <ClInclude Include="..\SRC\Interfaces\g_interfacelist.h" />

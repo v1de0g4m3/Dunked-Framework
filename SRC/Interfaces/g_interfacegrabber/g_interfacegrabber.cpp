@@ -31,7 +31,7 @@ void* g_interfacegrabber::getAddress(HMODULE hModule, const char* chInterface)
 
 void g_interfacegrabber::CheckValidModules()
 {
-	using g_Interfaces::grab;
+	using namespace g_Interfaces;
 
 	g_utilList::console->Print(" Waiting for game");
 
@@ -44,6 +44,8 @@ void g_interfacegrabber::CheckValidModules()
 		grab->hVstdlib = GetModuleHandleA("vstdlib.dll");
 		grab->hInputsystem = GetModuleHandleA("inputsystem.dll");
 		grab->hLuashared = GetModuleHandleA("lua_shared.dll");
+		grab->hGameui = GetModuleHandleA("gameui.dll");
+		grab->hTier0 = GetModuleHandleA("tier0.dll");
 		g_utilList::console->Print(".");
 		Sleep(250);
 	} while (grab->hClient == nullptr 
@@ -52,7 +54,9 @@ void g_interfacegrabber::CheckValidModules()
 		|| grab->hVguimatsurface == nullptr 
 		|| grab->hVstdlib == nullptr 
 		|| grab->hInputsystem == nullptr
-		|| grab->hLuashared == nullptr);
+		|| grab->hLuashared == nullptr
+		|| grab->hGameui == nullptr
+		|| grab->hTier0 == nullptr);
 
 	g_utilList::console->Print(" Game Started\n");
 }
@@ -60,7 +64,6 @@ void g_interfacegrabber::CheckValidModules()
 void g_interfacegrabber::dump()
 {
 	using namespace g_Interfaces;
-	using g_Interfaces::grab;
 
 	CheckValidModules();
 
@@ -92,9 +95,11 @@ void g_interfacegrabber::dump()
 	cvar = static_cast<g_cvar*>(grab->getAddress(grab->hVstdlib, "VEngineCvar"));
 
 	luashared = static_cast<g_LuaShared*>(grab->getAddress(grab->hLuashared, "LUASHARED"));
+
+	gameconsole = static_cast<g_gameconsole*>(grab->getAddress(grab->hGameui, "GameConsole"));
 }
 
 g_interfacegrabber* g_Interfaces::grab = new g_interfacegrabber;
 void* g_Interfaces::clientmode;
-g_LuaShared* g_Interfaces::luashared;
+g_gameconsole* g_Interfaces::gameconsole;
 

@@ -108,6 +108,9 @@
     <Filter Include="Header Files\Lua Functions\lua_metatables">
       <UniqueIdentifier>{d82673f1-4a6c-49bd-bc2c-115cec471bae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interfaces\g_gameconsole">
+      <UniqueIdentifier>{2335900d-bfbb-447a-baf5-a17e98699215}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SRC\Main.cpp">
@@ -303,6 +306,9 @@
     </ClInclude>
     <ClInclude Include="..\SRC\Lua Functions\lua_metatables\lua_metatables.h">
       <Filter>Header Files\Lua Functions\lua_metatables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SRC\Interfaces\g_gameconsole\g_gameconsole.h">
+      <Filter>Header Files\Interfaces\g_gameconsole</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

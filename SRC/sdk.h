@@ -8,6 +8,7 @@
 
 static const char* BUILDDATE = __DATE__;
 static const char* BUILDTIME = __TIME__;
+static const char* BUILDVERS = "0.1";
 
 #define _CRT_SECURE_NO_WARNINGS
 #define VC_EXTRALEAN
@@ -23,6 +24,7 @@ using byte = unsigned char;
 #include <stdlib.h> 
 #include <process.h>
 #include <string>
+#include <sstream>
 #include <Psapi.h>
 #pragma warning(pop)
 

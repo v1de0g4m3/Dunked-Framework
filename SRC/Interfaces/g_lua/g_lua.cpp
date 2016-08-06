@@ -66,3 +66,4 @@ std::string g_lua::RunCode(g_LuaInterface* state, std::string code, const char* 
 }
 
 g_lua* g_Interfaces::lua = new g_lua;
+g_LuaShared* g_Interfaces::luashared;

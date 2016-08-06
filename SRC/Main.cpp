@@ -60,6 +60,7 @@ void Dunked::DeInit()
 	delete[] g_Interfaces::cvarsearch;
 	delete[] g_Interfaces::debugoverlay;
 	delete[] g_Interfaces::engine;
+	delete[] g_Interfaces::gameconsole;
 	delete[] g_Interfaces::input;
 	delete[] g_Interfaces::grab;
 	delete[] g_Interfaces::lua;

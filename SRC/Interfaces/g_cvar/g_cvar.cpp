@@ -24,6 +24,18 @@ g_cvar* g_cvarsearch::FindVar(const char* chName)
 	return vfunc<vFuncFn>(this, 13)(this, chName);
 }
 
+void g_cvarsearch::ConsoleColorPrintf(const Color &col, const char* szMsg, ...)
+{
+	typedef void(__thiscall* vFn)(void*, const Color&, const char*);
+	return vfunc<vFn>(this, 23)(this, col, szMsg);
+}
+
+void g_cvarsearch::ConsolePrintf(const char* szMsg, ...)
+{
+	typedef void(__thiscall* vFn)(void*, const char*);
+	return vfunc<vFn>(this, 25)(this, szMsg);
+}
+
 g_cvar* g_Interfaces::cvar = new g_cvar;
 g_cvarsearch* g_Interfaces::cvarsearch = new g_cvarsearch;
 
