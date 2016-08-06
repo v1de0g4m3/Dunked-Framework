@@ -44,32 +44,33 @@ unsigned int __stdcall Dunked::Init(void*)
 void Dunked::DeInit()
 {
 	// UtilList deallocate
-	delete g_utilList::exception;
-	delete g_utilList::console;
-	delete g_utilList::hook;
-	delete g_utilList::netvar;
-	delete g_utilList::offsets;
-	delete g_utilList::math;
+	delete[] g_utilList::exception;
+	delete[] g_utilList::console;
+	delete[] g_utilList::hook;
+	delete[] g_utilList::netvar;
+	delete[] g_utilList::offsets;
+	delete[] g_utilList::math;
 
 	// Interface deallocate
-	delete g_Interfaces::client;
-	delete g_Interfaces::globaldata;
-	delete g_Interfaces::entlist;
-	delete g_Interfaces::clientmode;
-	delete g_Interfaces::cvar;
-	delete g_Interfaces::cvarsearch;
-	delete g_Interfaces::debugoverlay;
-	delete g_Interfaces::engine;
-	delete g_Interfaces::input;
-	delete g_Interfaces::grab;
-	delete g_Interfaces::panel;
-	delete g_Interfaces::modeldata;
-	delete g_Interfaces::gamemovement;
-	delete g_Interfaces::prediction;
-	delete g_Interfaces::movehelper;
-	delete g_Interfaces::surface;
-	delete g_Interfaces::surface2;
-	delete g_Interfaces::trace;
+	delete[] g_Interfaces::client;
+	delete[] g_Interfaces::globaldata;
+	delete[] g_Interfaces::entlist;
+	delete[] g_Interfaces::clientmode;
+	delete[] g_Interfaces::cvar;
+	delete[] g_Interfaces::cvarsearch;
+	delete[] g_Interfaces::debugoverlay;
+	delete[] g_Interfaces::engine;
+	delete[] g_Interfaces::input;
+	delete[] g_Interfaces::grab;
+	delete[] g_Interfaces::lua;
+	delete[] g_Interfaces::panel;
+	delete[] g_Interfaces::modeldata;
+	delete[] g_Interfaces::gamemovement;
+	delete[] g_Interfaces::prediction;
+	delete[] g_Interfaces::movehelper;
+	delete[] g_Interfaces::surface;
+	delete[] g_Interfaces::surface2;
+	delete[] g_Interfaces::trace;
 }
 
 void DLLMainInit(HMODULE hModule)
