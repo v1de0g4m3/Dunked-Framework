@@ -493,5 +493,5 @@ public:
 	g_LuaInterface* GetMenuState() const;
 	g_LuaInterface* GetClientState() const;
 	static g_LuaInterface* RetLuaState(g_LuaInterface* garrystate); // honestly no idea what this is, pasting from ley
-	std::string RunCode(g_LuaInterface* state, std::string code, const char* name) const;
+	std::string RunCode(g_LuaInterface* state, const std::string& code, const char* name) const;
 };

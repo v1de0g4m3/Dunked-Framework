@@ -29,13 +29,15 @@ void g_console::Print(std::string sMessage, ...)
 	va_end(vlist);
 
 	printf("%s", buf);
+
+	g_utilList::file->WriteToLog(sMessage);
 }
 
-void g_console::centerPrint(const char* sMessage)
+void g_console::centerPrint(std::string sMessage)
 {
-	int l = strlen(sMessage);
+	int l = sMessage.length();
 	auto pos = static_cast<int>((80 - l) / 2);
-	for (auto i = 0; i<pos; i++)
+	for (auto i = 0; i < pos; i++)
 		g_utilList::console->Print(" ");
 
 	g_utilList::console->Print(sMessage);
@@ -44,18 +46,17 @@ void g_console::centerPrint(const char* sMessage)
 typedef void(*msg)(char const* pMsg, ...);
 typedef void(*warning)(char const* pMsg, ...);
 
-void g_console::ConsolePrint(const char* szMsg, bool bWarn, ...)
+void g_console::ConsolePrint(std::string sString, bool bWarn, ...)
 {
-	char pzBuffer[1024];
-	sprintf(pzBuffer, "%s", szMsg);
-
 	auto Msg = reinterpret_cast<msg>(GetProcAddress(g_Interfaces::grab->hTier0, "Msg"));
 	auto Warning = reinterpret_cast<warning>(GetProcAddress(g_Interfaces::grab->hTier0, "Warning"));
 
 	if (bWarn)
-		Warning(pzBuffer);
+		Warning(sString.c_str());
 	else
-		Msg(pzBuffer);
+		Msg(sString.c_str());
+
+	g_utilList::file->WriteToLog(sString);
 }
 
 void g_console::Visible(bool bVisible)

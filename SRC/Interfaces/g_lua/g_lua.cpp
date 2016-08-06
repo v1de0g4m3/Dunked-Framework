@@ -40,7 +40,7 @@ g_LuaInterface* g_lua::RetLuaState(g_LuaInterface* garrystate)
 	return *reinterpret_cast<g_LuaInterface**>(reinterpret_cast<char*>(garrystate) + 0x4);
 }
 
-std::string g_lua::RunCode(g_LuaInterface* state, std::string code, const char* name) const
+std::string g_lua::RunCode(g_LuaInterface* state, const std::string& code, const char* name) const
 {
 	std::string rtn("");
 

@@ -171,6 +171,7 @@
     <ClCompile Include="..\SRC\Utilities\g\g.cpp" />
     <ClCompile Include="..\SRC\Utilities\g_console\g_console.cpp" />
     <ClCompile Include="..\SRC\Utilities\g_exception\g_exception.cpp" />
+    <ClCompile Include="..\SRC\Utilities\g_file\g_file.cpp" />
     <ClCompile Include="..\SRC\Utilities\g_hook\g_hook.cpp" />
     <ClCompile Include="..\SRC\Utilities\g_math\g_math.cpp" />
     <ClCompile Include="..\SRC\Utilities\g_netvar\g_netvar.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="..\SRC\Utilities\g\g.h" />
     <ClInclude Include="..\SRC\Utilities\g_console\g_console.h" />
     <ClInclude Include="..\SRC\Utilities\g_exception\g_exception.h" />
+    <ClInclude Include="..\SRC\Utilities\g_file\g_file.h" />
     <ClInclude Include="..\SRC\Utilities\g_hook\g_hook.h" />
     <ClInclude Include="..\SRC\Utilities\g_math\g_color.h" />
     <ClInclude Include="..\SRC\Utilities\g_math\g_angle.h" />

@@ -9,7 +9,7 @@ void* g_hook::HookVMT(int iIndex, void* pOverride, void* pOrig, const char* szHo
 	DWORD dwProtect;
 	auto dwOverride = reinterpret_cast<DWORD>(pOverride);
 
-	auto dwVFunc = *static_cast<DWORD*>(pOrig) + sizeof(DWORD) * iIndex; //-V620
+	auto dwVFunc = *static_cast<DWORD*>(pOrig) + sizeof(DWORD) * iIndex;
 	auto origFunc = reinterpret_cast<void*>(*reinterpret_cast<DWORD*>(dwVFunc));
 
 	VirtualProtect(reinterpret_cast<void*>(dwVFunc), sizeof(DWORD), PAGE_EXECUTE_READWRITE, &dwProtect);
@@ -30,10 +30,10 @@ void* g_hook::UnHookVMT(int iIndex, void* pOrig, const char* szHook)
 	DWORD dwProtect;
 	auto dwOrig = reinterpret_cast<DWORD>(pOrig);
 
-	auto dwVFunc = static_cast<DWORD*>(pOrig) + sizeof(DWORD) * iIndex; //-V620
-	VirtualProtect(static_cast<void*>(dwVFunc), sizeof(DWORD), PAGE_EXECUTE_READWRITE, &dwProtect);
-	*static_cast<DWORD*>(dwVFunc) = dwOrig;
-	VirtualProtect(static_cast<void*>(dwVFunc), sizeof(DWORD), dwProtect, &dwProtect);
+	auto dwVFunc = *static_cast<DWORD*>(pOrig) + sizeof(DWORD) * iIndex;
+	VirtualProtect(reinterpret_cast<void*>(dwVFunc), sizeof(DWORD), PAGE_EXECUTE_READWRITE, &dwProtect);
+	*reinterpret_cast<DWORD*>(dwVFunc) = dwOrig;
+	VirtualProtect(reinterpret_cast<void*>(dwVFunc), sizeof(DWORD), dwProtect, &dwProtect);
 
 	g_utilList::console->Print("UnHooked!\n");
 
@@ -86,7 +86,7 @@ DWORD g_hook::dwFindPattern(char* hModule, char* szPattern, char* szMask, const 
 			g_utilList::console->Print("(");
 			g_utilList::console->Print("0x%X", dwResult);
 			g_utilList::console->Print(")\n");
-			return base + i;
+			return dwResult;
 		}
 
 	}
